@@ -1,0 +1,107 @@
+body {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #292a36;
+  color: white;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+header {
+  padding: 2rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  background-color: #181920;
+}
+
+header a {
+  padding: .75rem 2rem;
+  margin: 0 2rem;
+  background-color: white;
+  color: #181920;
+  border: 2px solid white;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+header a.active {
+  background-color: aqua;
+  border: 2px solid aqua;
+}
+
+header a:hover, header a.active:hover {
+  background-color: transparent;
+  color: white;
+}
+
+
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+section {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 5rem auto;
+}
+
+form {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+form div {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+form div label {
+  margin-bottom: .5rem;
+}
+
+form div input,
+form div textarea {
+  width: 100%;
+  padding: .5rem;
+  text-align: center;
+  border-radius: .5rem;
+}
+
+form button {
+  padding: .5rem 2rem;
+  margin: 1rem;
+  font-size: 16px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: transparent;
+  color: white;
+}
