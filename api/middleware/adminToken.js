@@ -17,8 +17,6 @@ module.exports = (req, res, next) => {
         if(err) {
             return res.status(500).json({ serverErr: 'Token invalide' })
         }
-
-        console.log(res.body);
         
         req.user = result;
         next();

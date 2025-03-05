@@ -20,8 +20,29 @@ export const UserProvider = ({children}) => {
         getAllUsers()
     }, []);
 
+    function fetchCreateUser(username, email, password) {
+        const user = {
+            username,
+            email,
+            password,
+        }
+
+        axios.post(PATH, user)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                console.log("Rechargement...");
+                location.reload();
+            })
+            .catch(error => console.error(error));
+            }
+
     return(
-        <UserContext.Provider value={{ users }}>
+        <UserContext.Provider value={{ users, fetchCreateUser }}>
             {children}
         </UserContext.Provider>
     )

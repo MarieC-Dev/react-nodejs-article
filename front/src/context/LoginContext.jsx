@@ -6,7 +6,7 @@ export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
     const PATH = 'http://localhost:3000/login';
-    const [statusLogin, setStatusLogin] = useState(false);
+    //const [statusLogin, setStatusLogin] = useState(false);
 
     function loginFetch(emailValue, pwdValue) {
         const user = {
@@ -21,7 +21,12 @@ export const LoginProvider = ({ children }) => {
             credentials: 'include', // allows sending of cookie 
         })
         .then((res) => {
-            console.log(res.data);
+            console.log('Fetch login :', res.data);
+
+            localStorage.setItem("authToken", res.data.token);
+            localStorage.getItem("authToken");
+            
+            console.log(res.data.token);
         })
         .catch((error) => {
             console.log('Error login :', error);
@@ -29,7 +34,7 @@ export const LoginProvider = ({ children }) => {
     }
 
     return(
-        <LoginContext.Provider value={{ statusLogin, loginFetch }}>
+        <LoginContext.Provider value={{ loginFetch }}>
             {children}
         </LoginContext.Provider>
     )

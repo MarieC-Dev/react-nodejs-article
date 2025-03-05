@@ -15,6 +15,7 @@ export default function Home() {
             ))
         }
         else {
+            // TODO faire une animation de 'desert' avec une botte de foin qui passe
             return <p>Pas d'article</p>
         }
     }

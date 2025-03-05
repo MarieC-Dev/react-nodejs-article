@@ -12,6 +12,7 @@ import Users from './pages/Users';
 import { ArticleProvider } from './context/articleContext';
 import { UserProvider } from './context/UserContext';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 import { LoginProvider } from './context/LoginContext';
 
 const ContextWrapper = ({ children }) => {
@@ -36,6 +37,7 @@ createRoot(document.getElementById('root')).render(
                         <Route path='/addUser' element={<AddUser />} />
                         <Route path='/addArticle' element={<AddArticle />} />
                         <Route path='/connection' element={<Connection />} />
+                        <Route path='/profile' element={<Profile />} />
                         <Route path='/users' element={<Users />} />
                         <Route path='/dashboard' element={<Dashboard />} />
                     </Route>

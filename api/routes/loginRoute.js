@@ -25,7 +25,15 @@ router.post('/', async (req, res) => {
     }
     
     const userLogin = dbUsers[0];
-    const token = jwt.sign({email}, process.env.TOKEN_SECRET, {expiresIn: '24h'});
+    let token;
+
+    if(userLogin.email === 'admin@mail.com') {
+        token = jwt.sign({email}, process.env.ADMIN_TOKEN_SECRET, {expiresIn: '24h'});
+        console.log('is admin');
+    } else {
+        token = jwt.sign({email}, process.env.TOKEN_SECRET, {expiresIn: '24h'});
+        console.log('is user');
+    }
 
     res.cookie("token", token, {
         httpOnly: true, // JS cannot read it
