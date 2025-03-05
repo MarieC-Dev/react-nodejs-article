@@ -17,7 +17,7 @@ export const ArticleProvider = ({ children }) => {
     
                 setArticles(data);
             } catch (error) {
-                console.log('Erreur get :', error);
+                console.log('Erreur get articles :', error);
             }
         }
         getAllArticles();

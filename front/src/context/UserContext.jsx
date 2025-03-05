@@ -13,10 +13,11 @@ export const UserProvider = ({children}) => {
         async function getAllUsers() {
             await axios.get(PATH)
                 .then((res) => {
-                    setUsers(res.data);
+                    const data = res.data;
+                    setUsers(data);
                 }).catch(error => console.log('error get all users', error))
         }
-        getAllUsers();
+        getAllUsers()
     }, []);
 
     return(

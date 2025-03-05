@@ -11,14 +11,18 @@ import Connection from './pages/Connection';
 import Users from './pages/Users';
 import { ArticleProvider } from './context/articleContext';
 import { UserProvider } from './context/UserContext';
+import Dashboard from './pages/Dashboard';
+import { LoginProvider } from './context/LoginContext';
 
 const ContextWrapper = ({ children }) => {
     return(
-        <UserProvider>
-            <ArticleProvider>
-                {children}
-            </ArticleProvider>
-        </UserProvider>
+        <LoginProvider>
+            <UserProvider>
+                <ArticleProvider>
+                    {children}
+                </ArticleProvider>
+            </UserProvider>
+        </LoginProvider>
     )
 }
 
@@ -33,6 +37,7 @@ createRoot(document.getElementById('root')).render(
                         <Route path='/addArticle' element={<AddArticle />} />
                         <Route path='/connection' element={<Connection />} />
                         <Route path='/users' element={<Users />} />
+                        <Route path='/dashboard' element={<Dashboard />} />
                     </Route>
                 </Routes>
             </StrictMode>
