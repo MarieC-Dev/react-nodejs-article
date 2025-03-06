@@ -28,18 +28,12 @@ export const UserProvider = ({children}) => {
         }
 
         axios.post(PATH, user)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.error) {
-                    alert(data.error);
-                    return;
-                }
-                console.log("Rechargement...");
-                location.reload();
+            .then(res => {
+                console.log(res.data);
+                
             })
             .catch(error => console.error(error));
-            }
+    }
 
     return(
         <UserContext.Provider value={{ users, fetchCreateUser }}>

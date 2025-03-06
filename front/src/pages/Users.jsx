@@ -10,6 +10,7 @@ export default function Users() {
                     <div key={index} className="user">
                         <h2>{user.username}</h2>
                         <p>{user.email}</p>
+                        <p>Rôle : {user.role}</p>
                     </div>
                     ))}
             </section>

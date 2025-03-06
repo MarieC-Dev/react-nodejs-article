@@ -9,10 +9,12 @@ import AddUser from './pages/AddUser';
 import AddArticle from './pages/AddArticle';
 import Connection from './pages/Connection';
 import Users from './pages/Users';
-import { ArticleProvider } from './context/articleContext';
-import { UserProvider } from './context/UserContext';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import UserArticles from './pages/UserArticles';
+
+import { ArticleProvider } from './context/articleContext';
+import { UserProvider } from './context/UserContext';
 import { LoginProvider } from './context/LoginContext';
 
 const ContextWrapper = ({ children }) => {
@@ -36,10 +38,14 @@ createRoot(document.getElementById('root')).render(
                         <Route path='/' element={<Home />} />
                         <Route path='/addUser' element={<AddUser />} />
                         <Route path='/addArticle' element={<AddArticle />} />
-                        <Route path='/connection' element={<Connection />} />
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/users' element={<Users />} />
                         <Route path='/dashboard' element={<Dashboard />} />
+                        <Route path='/my-articles' element={<UserArticles />} />
+
+                        {!localStorage.getItem("adminToken") || !localStorage.getItem("moderatorToken") || !localStorage.getItem("userToken") && (
+                            <Route path='/connection' element={<Connection />} />
+                        )}
                     </Route>
                 </Routes>
             </StrictMode>

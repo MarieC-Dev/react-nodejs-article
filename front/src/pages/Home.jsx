@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useContext } from "react"
 import { ArticleContext } from "../context/articleContext"
+import { LoginContext } from "../context/LoginContext";
 
 export default function Home() {
-    const { articles } = useContext(ArticleContext);
+    const { articles } = useContext(ArticleContext); 
 
     const Articles = () => {
         if(articles.length > 0) {

@@ -21,19 +21,11 @@ router.post('/', async (req, res) => {
     const [dbUsers] = await db.execute('SELECT * FROM Users WHERE email = ?', [email]);
 
     if(dbUsers.length === 0) {
-        res.status(401).json({ error: 'Accès refusé' })
+        res.status(401).json({ error: 'Identifiants incorrect' })
     }
     
     const userLogin = dbUsers[0];
-    let token;
-
-    if(userLogin.email === 'admin@mail.com') {
-        token = jwt.sign({email}, process.env.ADMIN_TOKEN_SECRET, {expiresIn: '24h'});
-        console.log('is admin');
-    } else {
-        token = jwt.sign({email}, process.env.TOKEN_SECRET, {expiresIn: '24h'});
-        console.log('is user');
-    }
+    let token = jwt.sign({email}, process.env.TOKEN_SECRET, {expiresIn: '24h'});
 
     res.cookie("token", token, {
         httpOnly: true, // JS cannot read it
@@ -45,8 +37,12 @@ router.post('/', async (req, res) => {
         if(err) {
             return res.status(500).json({ serverErr: 'Erreur bcrypt compare : ' + err })
         }
-        
-        return res.status(200).json({ msg: 'Login OK', token, result })
+
+        if(!result) {
+            return res.status(401).json({ error: 'Mot de passe incorrect' })
+        } else {
+            return res.status(200).json({ msg: 'Login OK', token, result, role: userLogin.role })
+        }
     })
 })
 
