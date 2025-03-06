@@ -6,7 +6,6 @@ export default function Connection() {
     const { loginFetch } = useContext(LoginContext);
     const emailRef = useRef(null);
     const pwdRef = useRef(null);
-    localStorage.getItem("authToken");
 
     const loginUser = (e) => {
         e.preventDefault();

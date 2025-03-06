@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { StrictMode } from 'react'
+import { StrictMode, useContext } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from "react-router";
 import './index.css';
@@ -36,16 +36,15 @@ createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path='/' element={<Home />} />
-                        <Route path='/addUser' element={<AddUser />} />
                         <Route path='/addArticle' element={<AddArticle />} />
+                        <Route path='/my-articles' element={<UserArticles />} />
                         <Route path='/profile' element={<Profile />} />
+
+                        <Route path='/addUser' element={<AddUser />} />
                         <Route path='/users' element={<Users />} />
                         <Route path='/dashboard' element={<Dashboard />} />
-                        <Route path='/my-articles' element={<UserArticles />} />
 
-                        {!localStorage.getItem("adminToken") || !localStorage.getItem("moderatorToken") || !localStorage.getItem("userToken") && (
-                            <Route path='/connection' element={<Connection />} />
-                        )}
+                        <Route path='/connection' element={<Connection />} />
                     </Route>
                 </Routes>
             </StrictMode>

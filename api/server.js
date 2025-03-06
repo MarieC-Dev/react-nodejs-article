@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-const db = require('./database');
 const usersRoute = require('./routes/usersRoute');
 const articlesRoute = require('./routes/articlesRoute');
 const loginRoute = require('./routes/loginRoute');

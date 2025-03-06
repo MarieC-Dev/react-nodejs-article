@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
         if(!result) {
             return res.status(401).json({ error: 'Mot de passe incorrect' })
         } else {
-            return res.status(200).json({ msg: 'Login OK', token, result, role: userLogin.role })
+            return res.status(200).json({ msg: 'Login OK', token, result, user: userLogin })
         }
     })
 })

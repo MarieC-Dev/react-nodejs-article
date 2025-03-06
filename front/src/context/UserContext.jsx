@@ -35,6 +35,8 @@ export const UserProvider = ({children}) => {
             .catch(error => console.error(error));
     }
 
+    console.log(users);
+
     return(
         <UserContext.Provider value={{ users, fetchCreateUser }}>
             {children}
