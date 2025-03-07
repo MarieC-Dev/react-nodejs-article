@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    console.log(req.session);
-
     if(req.session.user) {
         req.session.destroy((err) => {
             if(err) {
