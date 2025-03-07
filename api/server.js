@@ -24,7 +24,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer les sessions
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, httpOnly: true },
+    cookie: { secure: false, httpOnly: true, token: process.env.TOKEN_SECRET },
 }))
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
