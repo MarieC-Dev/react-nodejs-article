@@ -13,7 +13,7 @@ import { ArticleProvider } from './context/articleContext';
 import { UserProvider } from './context/UserContext';
 import { LoginProvider } from './context/LoginContext';
 
-const ContextWrapper = ({ children }) => {
+function ContextWrapper({children}) {
     return(
         <LoginProvider>
             <UserProvider>

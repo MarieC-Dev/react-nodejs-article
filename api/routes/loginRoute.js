@@ -8,6 +8,15 @@ require('dotenv').config();
 
 router.use(cookieParser());
 
+// .../login/me
+router.get('/me', (req, res) => {
+    if(req.session.user) {
+        return res.json({ isAuthenticated: true, user: req.session.user });
+    } else {
+        return res.json({ isAuthenticated: false, msg: 'User not connected' })
+    }
+})
+
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
 
@@ -25,13 +34,13 @@ router.post('/', async (req, res) => {
     }
     
     const userLogin = dbUsers[0];
-    let token = jwt.sign({email}, process.env.TOKEN_SECRET, {expiresIn: '24h'});
+    let token = jwt.sign(
+        { id: userLogin.id, email: userLogin.email }, 
+        process.env.TOKEN_SECRET, 
+        { expiresIn: '7d' }
+    );
 
-    res.cookie("token", token, {
-        httpOnly: true, // JS cannot read it
-        secure: process.env.TOKEN_SECRET,
-        sameSite: 'Strict', // CSRF protection
-    });
+    req.session.user = { id: userLogin.id, email: userLogin.email }
 
     bcrypt.compare(password, userLogin.password, (err, result) => {
         if(err) {
@@ -41,7 +50,7 @@ router.post('/', async (req, res) => {
         if(!result) {
             return res.status(401).json({ error: 'Mot de passe incorrect' })
         } else {
-            return res.status(200).json({ msg: 'Login OK', token, result, user: userLogin })
+            return res.status(200).json({ msg: 'Login OK', token, result, user: req.session.user })
         }
     })
 })

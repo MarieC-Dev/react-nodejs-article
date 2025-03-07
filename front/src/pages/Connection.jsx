@@ -21,7 +21,7 @@ export default function Connection() {
                     idName='connection'
                     emailRef={emailRef}
                     pwdRef={pwdRef}
-                    submitForm={(e) => loginUser(e)} />
+                    submitForm={loginUser} />
             </section>
         </main>
     )

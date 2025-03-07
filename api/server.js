@@ -1,14 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const session = require("express-session");
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const usersRoute = require('./routes/usersRoute');
 const articlesRoute = require('./routes/articlesRoute');
+const authMiddleware = require('./middleware/authMiddleware');
 const loginRoute = require('./routes/loginRoute');
-const adminToken = require('./middleware/adminToken');
+const logoutRoute = require('./routes/logoutRoute');
 
 const app = express();
 const PORT = 3000;
@@ -20,16 +20,23 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Allow credentials (cookies, HTTP authentication)
 }));
+app.use(session({
+    secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer les sessions
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, httpOnly: true },
+}))
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', usersRoute);
 app.use('/articles', articlesRoute);
 app.use('/login', loginRoute);
+app.use('/logout', logoutRoute);
 
 
 // ADMIN route
-app.get('/admin/dashboard', adminToken, (req, res) => {
+app.get('/admin/dashboard', authMiddleware, (req, res) => {
     return res.json({ message: 'Welcome' });
 }); 
 

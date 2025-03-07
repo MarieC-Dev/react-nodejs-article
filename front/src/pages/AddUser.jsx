@@ -31,7 +31,7 @@ export default function AddUser() {
                     usernameRef={usernameRef}
                     emailRef={emailRef}
                     pwdRef={pwdRef} 
-                    submitForm={(e) => addUser(e)} />
+                    submitForm={addUser} />
             </section>
         </main>
     )

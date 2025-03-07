@@ -1,12 +1,19 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 
 export const LoginContext = createContext();
 
-export const LoginProvider = ({ children }) => {
+export const LoginProvider = ({children}) => {
     const PATH = 'http://localhost:3000/login';
-    let loginStore;
+
+    useEffect(() => {
+        async function checkConnection() {
+            await axios.get(PATH + '/me')
+            .then((res) => console.log('check connection front :', res.data))
+            .catch((err) => console.log('check connected error :', err))
+        }
+    }, [])
 
     function loginFetch(emailValue, pwdValue) {
         const user = {
@@ -19,25 +26,20 @@ export const LoginProvider = ({ children }) => {
                 'Content-Type': 'application/json',
             },
             credentials: 'include', // allows sending of cookie 
+            withCredentials: true // use cookie for get token
         })
         .then((res) => {
             console.log('Fetch login :', res.data);
 
-            res.data.result &&
-                localStorage.setItem("authToken", JSON.stringify(res.data.user));
-                location.href = '/';
+            if(res.data.result) location.href = '/profile';
         })
         .catch((error) => {
             console.log('Error login :', error);
         });     
     }
-
-    if(localStorage.getItem("authToken")) {
-        loginStore = JSON.parse(localStorage.getItem("authToken"));
-    }
     
     return(
-        <LoginContext.Provider value={{ loginStore, loginFetch }}>
+        <LoginContext.Provider value={{ loginFetch }}>
             {children}
         </LoginContext.Provider>
     )

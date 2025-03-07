@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database');
 const bcrypt = require('bcrypt');
+const authMiddleWare = require('../middleware/authMiddleware');
 
 router.get('/', async (req, res) => {
     try {
@@ -11,6 +12,13 @@ router.get('/', async (req, res) => {
         res.status(500).json({ serverErr: error });
     }
 });
+
+router.get('/profile', authMiddleWare, async (req, res) => {
+    const userId = req.user.id;
+    //req.cookies.token;
+    console.log({userProfile: req.user});
+    
+})
 
 router.post('/', async (req, res) => {
     // TODO Vérifier si user existe déjà
