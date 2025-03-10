@@ -23,9 +23,15 @@ export default function Form(props) {
                     <div>
                         <label htmlFor="password">Mot de passe :</label>
                         <input type="password" ref={props.pwdRef} id="password" name="password" required />
-                    </div>     
+                    </div>
                     
-                    <button type="submit">Créer</button>
+                    {props.idName === 'connection' ? (
+                        <a href={props.link} className="button">Connexion</a>
+                    ) : (
+                        <button type="submit">Créer</button>
+                    )}
+                    
+                    
                 </form> 
                 :
                 <form 
