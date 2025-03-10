@@ -7,18 +7,18 @@ require('dotenv').config();
 router.use(cookieParser());
 
 module.exports = (req, res, next) => {
-    const token = req.cookies.token; // Get cookie token
+    console.log('===> Middleware, session:', req.session); // 📌 Vérifie ce qui est stocké
 
-    if(!token) {
-        return res.status(401).json({ unauthorized: 'Accès refusé' })
+    if (!req.session || !req.session.token) {
+        return res.status(401).json({ unauthorized: 'Accès refusé : session invalide' });
     }
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, result) => {
-        if(err) {
-            return res.status(500).json({ serverErr: 'Token invalide' })
+    jwt.verify(req.session.token, process.env.TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: 'Token invalide' });
         }
         
-        req.user = result;
+        req.user = decoded; // Ajoute les infos du token à req.user
         next();
     });
 };

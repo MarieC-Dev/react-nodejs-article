@@ -23,24 +23,17 @@ router.post('/', async (req, res) => {
     if(!email || !password) {
         return res.status(401).json({ 
             unauthorized: 'Email et mot de passe requis', 
-            user: {email, password } 
+            user: { email, password } 
         })
     }
 
     const [dbUsers] = await db.execute('SELECT * FROM Users WHERE email = ?', [email]);
 
     if(dbUsers.length === 0) {
-        res.status(401).json({ error: 'Identifiants incorrect' })
+        return res.status(401).json({ error: 'Identifiants incorrect' })
     }
     
     const userLogin = dbUsers[0];
-    let token = jwt.sign(
-        { id: userLogin.id, email: userLogin.email }, 
-        process.env.TOKEN_SECRET, 
-        { expiresIn: '7d' }
-    );
-
-    req.session.user = { id: userLogin.id, email: userLogin.email }
 
     bcrypt.compare(password, userLogin.password, (err, result) => {
         if(err) {
@@ -49,9 +42,26 @@ router.post('/', async (req, res) => {
 
         if(!result) {
             return res.status(401).json({ error: 'Mot de passe incorrect' })
-        } else {
-            return res.status(200).json({ msg: 'Login OK', token, result, user: req.session.user })
-        }
+        } 
+
+        let token = jwt.sign(
+            { id: userLogin.id, email: userLogin.email }, 
+            process.env.TOKEN_SECRET, 
+            { expiresIn: '7d' }
+        );
+    
+        req.session.user = { id: userLogin.id, email: userLogin.email }
+        req.session.token = token;
+    
+        req.session.save(err => {
+            if (err) {
+                return res.status(500).json({ session: 'Erreur de sauvegarde de la session' });
+            }
+            // ✅ Envoi de la réponse finale (UNE SEULE FOIS)
+            return res.json({ msg: 'Login OK', token, user: req.session.user });
+        });
+    
+        console.log('===>', req.session);
     })
 })
 

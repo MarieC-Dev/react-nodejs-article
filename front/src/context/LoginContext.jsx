@@ -25,7 +25,6 @@ export const LoginProvider = ({children}) => {
             headers: { 
                 'Content-Type': 'application/json',
             },
-            credentials: 'include', // allows sending of cookie 
             withCredentials: true // use cookie for get token
         })
         .then((res) => {

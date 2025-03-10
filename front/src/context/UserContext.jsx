@@ -23,16 +23,15 @@ export const UserProvider = ({children}) => {
     }, []);
 
     // GET ONE USER (PROFILE)
-    /* useEffect(() => {
+    useEffect(() => {
         async function getUser() {
-            await axios.get(PATH + '/profile', {withCredentials: true})
+            await axios.get(PATH + '/profile', {credentials: "include"})
             .then((res) => {
                 console.log(res.data);
-                
             }).catch((error) => console.log('Erreur get user :', error))
         }
         getUser();
-    }, []); */
+    }, []);
 
     // CREATE USER
     function fetchCreateUser(username, email, password) {
