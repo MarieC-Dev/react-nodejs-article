@@ -2,6 +2,12 @@ CREATE DATABASE articleApi;
 
 USE articleApi;
 
+CREATE TABLE `sessions` (
+  `session_id` VARCHAR(128) NOT NULL PRIMARY KEY,
+  `expires` INT(11) NOT NULL,
+  `data` TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,

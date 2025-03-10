@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
@@ -9,15 +10,20 @@ const usersRoute = require('./routes/usersRoute');
 const articlesRoute = require('./routes/articlesRoute');
 const loginRoute = require('./routes/loginRoute');
 const logoutRoute = require('./routes/logoutRoute');
+const db = require('./database');
 
 const app = express();
 const PORT = 3000;
 
+// Création du store de session
+const sessionStore = new MySQLStore({}, db);
+
 app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer les sessions
-    resave: true,
+    resave: false,
     saveUninitialized: false,
+    store: sessionStore,
     cookie: {
         secure: false,
         httpOnly: true, 
@@ -43,9 +49,6 @@ app.use('/logout', logoutRoute);
 app.get('/admin/dashboard', authMiddleware, (req, res) => {
     return res.json({ message: 'Welcome' });
 }); 
-
-// check protected routes
-//console.log("📌 Routes disponibles :", app._router.stack);
 
 app.listen(PORT, () => {
     console.log('✅ API Listen port ' + PORT);
