@@ -26,7 +26,7 @@ export default function Form(props) {
                     </div>
                     
                     {props.idName === 'connection' ? (
-                        <a href={props.link} className="button">Connexion</a>
+                        <button type="submit">Connexion</button>
                     ) : (
                         <button type="submit">Créer</button>
                     )}
