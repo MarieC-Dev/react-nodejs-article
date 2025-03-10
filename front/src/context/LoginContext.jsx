@@ -28,9 +28,8 @@ export const LoginProvider = ({children}) => {
             withCredentials: true // use cookie for get token
         })
         .then((res) => {
+            location.href = '/profile';
             console.log('Fetch login :', res.data);
-
-            if(res.data.result) location.href = '/profile';
         })
         .catch((error) => {
             console.log('Error login :', error);

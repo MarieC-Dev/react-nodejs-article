@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/profile', authMiddleWare, async (req, res) => {
-    const userId = req.user.id;
     //req.cookies.token;
     console.log({userProfile: req.user});
     
