@@ -23,7 +23,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer les sessions
     resave: false,
     saveUninitialized: false,
-    store: sessionStore,
+    store: sessionStore,  // Utilisation de MySQLStore pour stocker la session
     cookie: {
         secure: false,
         httpOnly: true, 
@@ -49,6 +49,17 @@ app.use('/logout', logoutRoute);
 app.get('/admin/dashboard', authMiddleware, (req, res) => {
     return res.json({ message: 'Welcome' });
 }); 
+
+
+
+// Optionally use onReady() to get a promise that resolves when store is ready.
+sessionStore.onReady().then(() => {
+	// MySQL session store ready for use.
+	console.log('✅ MySQLStore ready');
+}).catch(error => {
+	// Something went wrong.
+	console.error(error);
+});
 
 app.listen(PORT, () => {
     console.log('✅ API Listen port ' + PORT);

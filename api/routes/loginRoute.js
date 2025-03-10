@@ -59,9 +59,7 @@ router.post('/', async (req, res) => {
             }
             // ✅ Envoi de la réponse finale (UNE SEULE FOIS)
             return res.json({ msg: 'Login OK', token, user: req.session.user });
-        });
-    
-        console.log('===>', req.session);
+        });    
     })
 })
 
