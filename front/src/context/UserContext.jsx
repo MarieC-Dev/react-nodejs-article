@@ -27,7 +27,7 @@ export const UserProvider = ({children}) => {
         async function getUser() {
             await axios.get(PATH + '/profile', {credentials: "include"})
             .then((res) => {
-                console.log(res.data);
+                setProfile(res.data)
             }).catch((error) => console.log('Erreur get user :', error))
         }
         getUser();
@@ -49,10 +49,8 @@ export const UserProvider = ({children}) => {
             .catch(error => console.error(error));
     }
 
-    //console.log({users});
-
     return(
-        <UserContext.Provider value={{ users, fetchCreateUser }}>
+        <UserContext.Provider value={{ users, profile, fetchCreateUser }}>
             {children}
         </UserContext.Provider>
     )

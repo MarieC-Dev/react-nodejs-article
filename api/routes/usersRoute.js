@@ -14,9 +14,14 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/profile', authMiddleWare, async (req, res) => {
-    //req.cookies.token;
-    console.log({userProfile: req.user});
-    
+    try {
+        const [rows] = await db.execute('SELECT * FROM sessions');
+        const data = JSON.parse(rows[0].data);
+        const profile = data.user;
+        res.status(200).json(profile);
+    } catch (error) {
+        res.status(500).json({ profileError: 'Utilisateur introuvable | ' + error })
+    }
 })
 
 router.post('/', async (req, res) => {

@@ -50,7 +50,13 @@ router.post('/', async (req, res) => {
             { expiresIn: '7d' }
         );
     
-        req.session.user = { id: userLogin.id, email: userLogin.email }
+        req.session.user = { 
+            id: userLogin.id, 
+            username: userLogin.username,
+            email: userLogin.email, 
+            pwd: userLogin.password,
+            role: userLogin.role
+        }
         req.session.token = token;
     
         req.session.save(err => {
