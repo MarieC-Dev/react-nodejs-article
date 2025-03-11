@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     const [dbUsers] = await db.execute('SELECT * FROM Users WHERE email = ?', [email]);
 
     if(dbUsers.length === 0) {
-        return res.status(401).json({ error: 'Identifiants incorrect' })
+        return res.status(401).json({ error: '1- Identifiants incorrect' })
     }
     
     const userLogin = dbUsers[0];
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
         }
 
         if(!result) {
-            return res.status(401).json({ error: 'Mot de passe incorrect' })
+            return res.status(401).json({ error: '2- Identifiants incorrect' })
         } 
 
         let token = jwt.sign(

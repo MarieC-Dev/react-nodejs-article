@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const LoginContext = createContext();
 
 export const LoginProvider = ({children}) => {
     const PATH = 'http://localhost:3000/login';
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         async function checkConnection() {
@@ -28,16 +29,18 @@ export const LoginProvider = ({children}) => {
             withCredentials: true // use cookie for get token
         })
         .then((res) => {
+            setError(false);
             location.href = '/profile';
             console.log('Fetch login :', res.data);
         })
         .catch((error) => {
+            setError(true);
             console.log('Error login :', error);
         });     
     }
     
     return(
-        <LoginContext.Provider value={{ loginFetch }}>
+        <LoginContext.Provider value={{ error, loginFetch }}>
             {children}
         </LoginContext.Provider>
     )

@@ -8,7 +8,6 @@ export default function Profile() {
     const { profile } = useContext(UserContext);
     console.log(profile);
     
-
     const logoutFunc = async () => {
         await axios.post(PATH, {}, {
             headers: { 
