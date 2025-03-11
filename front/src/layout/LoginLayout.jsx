@@ -1,13 +1,14 @@
 import { Outlet } from "react-router";
 import Header from "../components/Header";
 import { useContext } from "react";
-import { LoginContext } from "../context/LoginContext";
+import { UserContext } from "../context/UserContext";
 import forbidden from '../assets/hand-solid.svg'
 
 export default function LoginLayout() {
-    const { isLogin } = useContext(LoginContext);
+    const { profile } = useContext(UserContext);
+    console.log('Layout :', Object.keys(profile).length);
 
-    if(isLogin) {
+    if(Object.keys(profile).length > 0) {
         return(
             <div className="loginLayout">
                 <Header />

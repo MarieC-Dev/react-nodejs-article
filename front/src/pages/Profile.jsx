@@ -6,7 +6,6 @@ import { UserContext } from "../context/UserContext";
 export default function Profile() {
     const PATH = 'http://localhost:3000/logout';
     const { profile } = useContext(UserContext);
-    console.log(profile);
     
     const logoutFunc = async () => {
         await axios.post(PATH, {}, {

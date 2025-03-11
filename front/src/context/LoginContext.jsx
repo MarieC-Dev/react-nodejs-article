@@ -6,7 +6,7 @@ export const LoginContext = createContext();
 
 export const LoginProvider = ({children}) => {
     const PATH = 'http://localhost:3000/login';
-    const [isLogin, setIsLogin] = useState(false);
+    const [loginError, setLoginError] = useState(false);
 
     /* useEffect(() => {
         async function checkConnection() {
@@ -29,18 +29,18 @@ export const LoginProvider = ({children}) => {
             withCredentials: true // use cookie for get token
         })
         .then((res) => {
-            setIsLogin(true);
+            setLoginError(false);
             location.href = '/profile';
             console.log('Fetch login :', res.data);
         })
         .catch((error) => {
-            setIsLogin(false);
+            setLoginError(true);
             console.log('Error login :', error);
         });     
     }
     
     return(
-        <LoginContext.Provider value={{ isLogin, loginFetch }}>
+        <LoginContext.Provider value={{ loginError, loginFetch }}>
             {children}
         </LoginContext.Provider>
     )
