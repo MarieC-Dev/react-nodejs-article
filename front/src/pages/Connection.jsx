@@ -3,7 +3,7 @@ import Form from "../components/Form";
 import { LoginContext } from "../context/LoginContext";
 
 export default function Connection() {
-    const { loginFetch } = useContext(LoginContext);
+    const { error, loginFetch } = useContext(LoginContext);
     const emailRef = useRef(null);
     const pwdRef = useRef(null);
 
@@ -22,6 +22,10 @@ export default function Connection() {
                     emailRef={emailRef}
                     pwdRef={pwdRef}
                     submitForm={loginUser} />
+                
+                {error && (
+                    <p>Identifiants incorrect</p>
+                )}
             </section>
         </main>
     )
