@@ -8,13 +8,13 @@ export const LoginProvider = ({children}) => {
     const PATH = 'http://localhost:3000/login';
     const [isLogin, setIsLogin] = useState(false);
 
-    useEffect(() => {
+    /* useEffect(() => {
         async function checkConnection() {
             await axios.get(PATH + '/me')
             .then((res) => console.log('check connection front :', res.data))
             .catch((err) => console.log('check connected error :', err))
         }
-    }, [])
+    }, []) */
 
     function loginFetch(emailValue, pwdValue) {
         const user = {
