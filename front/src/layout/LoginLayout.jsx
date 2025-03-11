@@ -6,7 +6,7 @@ import forbidden from '../assets/hand-solid.svg'
 
 export default function LoginLayout() {
     const { profile } = useContext(UserContext);
-    console.log('Layout :', Object.keys(profile).length);
+    console.log('Layout :', profile);
 
     if(Object.keys(profile).length > 0) {
         return(

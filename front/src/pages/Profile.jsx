@@ -25,9 +25,9 @@ export default function Profile() {
 
     return(
         <main className="profilePage">
-            <h2>{profile.username}</h2>
+            <h2>{profile.username.charAt(0).toUpperCase() + profile.username.slice(1)}</h2>
             <p>{profile.email}</p>
-            <p>Mot de passe : {profile.pwd}</p>
+            <p>Mot de passe : **********</p> {/* {profile.pwd} */}
             <p>Role : {profile.role}</p>
 
             <button onClick={logoutFunc}>
